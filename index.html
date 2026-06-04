@@ -1,642 +1,1088 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="dark">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio — [Prénom Nom]</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --ease: cubic-bezier(.25,.46,.45,.94);
-      --transition: .35s var(--ease);
-      --bg: #0d0f12;
-      --surface: #13161b;
-      --border: #222630;
-      --text: #eceef5;
-      --muted: #5c6478;
-      --accent: #5eead4;
-      --accent2: #818cf8;
-      --accent3: #fb923c;
-      --accent-dim: rgba(94,234,212,.09);
-      --accent2-dim: rgba(129,140,248,.09);
-      --tag-bg: #151820;
-      --tag-border: #252b38;
-      --num-color: rgba(255,255,255,.025);
-      --grad-hero: radial-gradient(ellipse 70% 50% at 65% 0%, rgba(94,234,212,.07) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 95% 80%, rgba(129,140,248,.06) 0%, transparent 60%);
-    }
-    [data-theme="light"] {
-      --bg: #f8f8f6;
-      --surface: #ffffff;
-      --border: #e2e4ec;
-      --text: #111318;
-      --muted: #8890a4;
-      --accent: #0d9488;
-      --accent2: #4f46e5;
-      --accent3: #ea580c;
-      --accent-dim: rgba(13,148,136,.07);
-      --accent2-dim: rgba(79,70,229,.07);
-      --tag-bg: #efefed;
-      --tag-border: #dddde2;
-      --num-color: rgba(0,0,0,.04);
-      --grad-hero: radial-gradient(ellipse 70% 50% at 65% 0%, rgba(13,148,136,.06) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 95% 80%, rgba(79,70,229,.05) 0%, transparent 60%);
-    }
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Portfolio — [Prénom Nom]</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap"
+		rel="stylesheet" />
+	<style>
+		:root {
+			--ease: cubic-bezier(.25, .46, .45, .94);
+			--transition: .35s var(--ease);
+			--bg: #0d0f12;
+			--surface: #13161b;
+			--border: #222630;
+			--text: #eceef5;
+			--muted: #5c6478;
+			--accent: #5eead4;
+			--accent2: #818cf8;
+			--accent3: #fb923c;
+			--accent-dim: rgba(94, 234, 212, .09);
+			--accent2-dim: rgba(129, 140, 248, .09);
+			--tag-bg: #151820;
+			--tag-border: #252b38;
+			--num-color: rgba(255, 255, 255, .025);
+			--grad-hero: radial-gradient(ellipse 70% 50% at 65% 0%, rgba(94, 234, 212, .07) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 95% 80%, rgba(129, 140, 248, .06) 0%, transparent 60%);
+		}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      font-family: 'Syne', sans-serif;
-      background: var(--grad-hero), var(--bg);
-      color: var(--text);
-      transition: background var(--transition), color var(--transition);
-    }
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+		[data-theme="light"] {
+			--bg: #f8f8f6;
+			--surface: #ffffff;
+			--border: #e2e4ec;
+			--text: #111318;
+			--muted: #8890a4;
+			--accent: #0d9488;
+			--accent2: #4f46e5;
+			--accent3: #ea580c;
+			--accent-dim: rgba(13, 148, 136, .07);
+			--accent2-dim: rgba(79, 70, 229, .07);
+			--tag-bg: #efefed;
+			--tag-border: #dddde2;
+			--num-color: rgba(0, 0, 0, .04);
+			--grad-hero: radial-gradient(ellipse 70% 50% at 65% 0%, rgba(13, 148, 136, .06) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 95% 80%, rgba(79, 70, 229, .05) 0%, transparent 60%);
+		}
 
-    nav {
-      position: fixed; inset: 0 0 auto 0;
-      z-index: 10;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem;
-      height: 56px;
-      background: rgba(13,15,18,.94);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-    }
-    .nav-logo { font-family: 'DM Mono', monospace; font-size: .85rem; color: var(--accent); letter-spacing: .08em; }
-    .nav-links { display: flex; gap: 2.4rem; }
-    .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 1rem;
-      color: var(--muted);
-      letter-spacing: .06em;
-      padding-bottom: 2px;
-      position: relative;
-      transition: color .2s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      inset: auto 0 0;
-      height: 1px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .25s var(--ease);
-    }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--text); }
-    .nav-links a.active::after { transform: scaleX(1); }
-    .toggle {
-      width: 40px; height: 22px;
-      border-radius: 999px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background .3s;
-    }
-    .toggle::after {
-      content: '';
-      position: absolute;
-      inset: 2px auto auto 2px;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: var(--muted);
-      transition: transform .3s var(--ease), background .3s;
-    }
-    [data-theme="light"] .toggle::after {
-      transform: translateX(18px);
-      background: var(--accent);
-    }
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-    main { padding-top: 56px; }
-    section {
-      width: min(1300px, 90vw);
-      margin: 0 auto;
-      padding: 7rem 3.5rem;
-      position: relative;
-    }
+		html {
+			scroll-behavior: smooth;
+		}
 
-    .sec-num {
-      position: absolute;
-      top: 1.5rem; right: 2rem;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 7rem;
-      line-height: 1;
-      color: var(--num-color);
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -.04em;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 1rem;
-      color: var(--accent);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      margin-bottom: 3rem;
-    }
+		body {
+			min-height: 100vh;
+			overflow-x: hidden;
+			font-family: 'Syne', sans-serif;
+			background: var(--grad-hero), var(--bg);
+			color: var(--text);
+			transition: background var(--transition), color var(--transition);
+		}
 
-    #about {
-      padding: 8rem 0 6rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .hero-school-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .55rem;
-      padding: .45rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      background: var(--tag-bg);
-      color: var(--muted);
-      font-family: 'DM Mono', monospace;
-      font-size: .9rem;
-      letter-spacing: .07em;
-      margin-bottom: 1.5rem;
-      width: max-content;
-      max-width: 100%;
-    }
-    .hero-school-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: inline-block;
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-    .hero-school-badge span { color: var(--accent2); }
-    h1 {
-      font-size: clamp(4rem, 5vw, 5.3rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -.02em;
-      margin-bottom: .6rem;
-    }
-    h1 em { color: var(--muted); font-style: normal; font-weight: 400; }
-    .hero-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 1.8rem;
-      letter-spacing: .1em;
-      margin-bottom: 1.9rem;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
 
-    .parcours {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-      align-items: center;
-      margin-bottom: 2.8rem;
-    }
-    .parcours-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .3rem;
-      font-family: 'DM Mono', monospace;
-      font-size: .75rem;
-      letter-spacing: .06em;
-    }
-    .step-label {
-      padding: .65rem 1.2rem;
-      border-radius: 2px;
-      border: 1px solid var(--tag-border);
-      background: var(--tag-bg);
-      color: var(--muted);
-      transition: all .2s;
-    }
-    .step-sub {
-      font-size: .85rem;
-      color: var(--muted);
-      letter-spacing: .04em;
-      opacity: .6;
-    }
-    .parcours-step.active .step-label {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-dim);
-      box-shadow: 0 0 0 1px var(--accent);
-    }
-    .parcours-step.active .step-sub { color: var(--accent); opacity: 1; }
-    .blink { animation: blink 2.2s ease-in-out infinite; }
-    .parcours-arrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 1rem;
-      color: var(--border);
-      padding: 0 .1rem;
-      margin-bottom: 1rem;
-      flex-shrink: 0;
-    }
+		ul {
+			list-style: none;
+		}
 
-    .hero-bio {
-      font-size: 1.45rem;
-      color: var(--muted);
-      line-height: 1.95;
-      max-width: 560px;
-      margin-bottom: 2.5rem;
-    }
+		::-webkit-scrollbar {
+			width: 4px;
+		}
 
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      width: fit-content;
-      margin-bottom: 0;
-    }
-    .stat-item {
-      background: var(--bg);
-      padding: 1.8rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: .3rem;
-      min-width: 150px;
-      justify-content: center;
-    }
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -.03em;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .stat-label {
-      font-family: 'DM Mono', monospace;
-      font-size: .85rem;
-      letter-spacing: .08em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
+		::-webkit-scrollbar-track {
+			background: var(--bg);
+		}
 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .skill-group {
-      background: var(--bg);
-      padding: 1.8rem;
-    }
-    .skill-group-title {
-      font-family: 'DM Mono', monospace;
-      font-size: .9rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-    .skill-group:nth-child(1) .skill-group-title { color: var(--accent); }
-    .skill-group:nth-child(2) .skill-group-title { color: var(--accent2); }
-    .skill-group:nth-child(3) .skill-group-title { color: var(--accent3); }
-    .skill-list { display: flex; flex-direction: column; gap: .85rem; }
-    .skill-item { display: flex; align-items: center; gap: .75rem; font-size: 1.1rem; color: var(--text); }
-    .skill-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: var(--accent2); flex-shrink: 0; }
-    .skill-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; }
-    .skill-item.word .skill-icon { color: #2b579a; }
-    .skill-item.excel .skill-icon { color: #217346; }
-    .skill-item.jira .skill-icon { color: #0052cc; }
-    .skill-item.python .skill-icon { color: #3776ab; }
-    .skill-item.htmlcss .skill-icon { color: #e44d26; }
-    .skill-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent3); }
+		::-webkit-scrollbar-thumb {
+			background: var(--border);
+			border-radius: 2px;
+		}
 
-    .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .project-item {
-      position: relative;
-      background: var(--bg);
-      padding: 2.8rem 3rem;
-      display: grid;
-      gap: 1.15rem;
-      border-left: 2px solid transparent;
-      overflow: hidden;
-      transition: background .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
-    }
-    .project-item::after {
-      content: '';
-      position: absolute;
-      left: 4px;
-      top: 50%;
-      width: 2px;
-      height: 0;
-      background: var(--accent);
-      transform: translateY(-50%);
-      transition: height .25s var(--ease), background .25s var(--ease);
-      z-index: 3;
-    }
-    .project-item:nth-child(even)::after { background: var(--accent2); }
-    .project-item:hover {
-      background: var(--surface);
-      border-left-color: transparent;
-      box-shadow: inset 6px 0 0 0 var(--surface);
-    }
-    .project-item:hover::after { height: 80%; }
-    .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.2rem; }
-    .project-info { flex: 1; }
-    .project-name { font-size: 1.05rem; font-weight: 600; margin-bottom: .45rem; letter-spacing: -.01em; }
-    .project-desc { font-size: .95rem; color: var(--muted); line-height: 1.7; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: flex-end; flex-shrink: 0; }
-    .project-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: .68rem;
-      letter-spacing: .05em;
-      padding: .35rem .75rem;
-      border-radius: 2px;
-    }
-    .project-item:nth-child(odd) .project-tag { background: var(--accent-dim); color: var(--accent); }
-    .project-item:nth-child(even) .project-tag { background: var(--accent2-dim); color: var(--accent2); }
-    .project-links { display: flex; gap: .8rem; flex-wrap: wrap; }
-    .project-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 1rem;
-      letter-spacing: .07em;
-      padding: .45rem 1rem;
-      border-radius: 2px;
-      border: 1px solid var(--border);
-      color: rgba(236,238,245,.88);
-      background: rgba(94,234,212,.05);
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .project-btn:hover { color: rgba(236,238,245,.98); border-color: var(--accent); background: rgba(94,234,212,.12); }
-    .project-btn.preview {
-      background: rgba(129,140,248,.06);
-      color: rgba(236,238,245,.88);
-      border-color: var(--border);
-    }
-    .project-btn.preview:hover { color: rgba(236,238,245,.98); background: rgba(129,140,248,.14); border-color: var(--accent2); }
-    .project-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+		nav {
+			position: fixed;
+			inset: 0 0 auto 0;
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 3rem;
+			height: 56px;
+			background: rgba(13, 15, 18, .94);
+			border-bottom: 1px solid var(--border);
+			backdrop-filter: blur(14px);
+		}
 
-    .project-item.featured {
-      border: 1px solid rgba(255,255,255,.08);
-      background: var(--bg);
-    }
-    .project-item.featured:hover {
-      background: var(--surface);
-      box-shadow: inset 18px 0 0 0 var(--surface);
-    }
-    .project-item.featured::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      padding: 1px;
-      pointer-events: none;
-      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
-      background-size: 300% 100%;
-      animation: borderMove 5s linear infinite;
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      -webkit-mask-composite: xor;
-    }
+		.nav-logo {
+			font-family: 'DM Mono', monospace;
+			font-size: .85rem;
+			color: var(--accent);
+			letter-spacing: .08em;
+		}
 
-    #contact .section-label, footer { margin-top: 0; }
-    .contact-intro { font-size: 1.15rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 1.75rem; }
-    .contact-links { display: flex; flex-direction: column; gap: .7rem; }
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.5rem;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      transition: border-color .2s, background .2s;
-      width: fit-content;
-      min-width: 300px;
-    }
-    .contact-link:hover { border-color: var(--accent2); background: var(--accent2-dim); }
-    .contact-label { font-family: 'DM Mono', monospace; font-size: .7rem; letter-spacing: .08em; color: var(--muted); min-width: 70px; }
-    .contact-value { font-size: .9rem; color: var(--text); }
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
-    .footer-text { font-family: 'DM Mono', monospace; font-size: .9rem; color: var(--muted); letter-spacing: .08em; }
+		.nav-links {
+			display: flex;
+			gap: 2.4rem;
+		}
 
-    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
-    .fade-in.visible { opacity: 1; transform: none; }
+		.nav-links a {
+			font-family: 'DM Mono', monospace;
+			font-size: 1rem;
+			color: var(--muted);
+			letter-spacing: .06em;
+			padding-bottom: 2px;
+			position: relative;
+			transition: color .2s;
+		}
 
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
-    @keyframes blink { 0%,100% { opacity: 1; } 45%,55% { opacity: .25; } }
-    @keyframes borderMove { from { background-position: 0 50%; } to { background-position: 300% 50%; } }
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			inset: auto 0 0;
+			height: 1px;
+			background: var(--accent);
+			transform: scaleX(0);
+			transform-origin: left;
+			transition: transform .25s var(--ease);
+		}
 
-    @media (max-width: 900px) {
-      .hero-stats { width: 100%; max-width: 100%; }
-      section { width: min(100%, 95vw); padding: 4rem 1.2rem; }
-    }
-    @media (max-width: 640px) {
-      nav { padding: 0 1.25rem; }
-      .nav-links { display: none; }
-      section { padding: 4rem 1.25rem; }
-      .sec-num { font-size: 4.5rem; top: 1rem; right: 1.25rem; }
-      .project-top { flex-direction: column; }
-      .project-tags { justify-content: flex-start; }
-      .contact-link { min-width: 0; width: 100%; }
-      .hero-stats { justify-content: center; width: 100%; }
-      .stat-item { padding: .75rem; }
-      .stat-value { font-size: 1rem; }
-      .stat-label { font-size: .75rem; line-height: 1.3; }
-    }
-  </style>
+		.nav-links a:hover,
+		.nav-links a.active {
+			color: var(--text);
+		}
+
+		.nav-links a.active::after {
+			transform: scaleX(1);
+		}
+
+		.toggle {
+			width: 40px;
+			height: 22px;
+			border-radius: 999px;
+			background: var(--border);
+			border: 1px solid var(--border);
+			position: relative;
+			cursor: pointer;
+			flex-shrink: 0;
+			transition: background .3s;
+		}
+
+		.toggle::after {
+			content: '';
+			position: absolute;
+			inset: 2px auto auto 2px;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: var(--muted);
+			transition: transform .3s var(--ease), background .3s;
+		}
+
+		[data-theme="light"] .toggle::after {
+			transform: translateX(18px);
+			background: var(--accent);
+		}
+
+		main {
+			padding-top: 56px;
+		}
+
+		section {
+			width: min(1300px, 90vw);
+			margin: 0 auto;
+			padding: 7rem 3.5rem;
+			position: relative;
+		}
+
+		.sec-num {
+			position: absolute;
+			top: 1.5rem;
+			right: 2rem;
+			font-family: 'Syne', sans-serif;
+			font-weight: 800;
+			font-size: 7rem;
+			line-height: 1;
+			color: var(--num-color);
+			pointer-events: none;
+			user-select: none;
+			letter-spacing: -.04em;
+		}
+
+		.section-label {
+			font-family: 'DM Mono', monospace;
+			font-size: 1rem;
+			color: var(--accent);
+			letter-spacing: .14em;
+			text-transform: uppercase;
+			margin-bottom: 3rem;
+		}
+
+		#about {
+			padding: 8rem 0 6rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.hero-school-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: .55rem;
+			padding: .45rem 1rem;
+			border: 1px solid var(--border);
+			border-radius: 99px;
+			background: var(--tag-bg);
+			color: var(--muted);
+			font-family: 'DM Mono', monospace;
+			font-size: .9rem;
+			letter-spacing: .07em;
+			margin-bottom: 1.5rem;
+			width: max-content;
+			max-width: 100%;
+		}
+
+		.hero-school-badge::before {
+			content: '';
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--accent);
+			display: inline-block;
+			animation: pulse 2.5s ease-in-out infinite;
+		}
+
+		.hero-school-badge span {
+			color: var(--accent2);
+		}
+
+		h1 {
+			font-size: clamp(4rem, 5vw, 5.3rem);
+			font-weight: 800;
+			line-height: 1;
+			letter-spacing: -.02em;
+			margin-bottom: .6rem;
+		}
+
+		h1 em {
+			color: var(--muted);
+			font-style: normal;
+			font-weight: 400;
+		}
+
+		.hero-title {
+			font-family: 'DM Mono', monospace;
+			font-size: 1.8rem;
+			letter-spacing: .1em;
+			margin-bottom: 1.9rem;
+			background: linear-gradient(90deg, var(--accent), var(--accent2));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.parcours {
+			display: flex;
+			flex-wrap: wrap;
+			gap: .45rem;
+			align-items: center;
+			margin-bottom: 2.8rem;
+		}
+
+		.parcours-step {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: .3rem;
+			font-family: 'DM Mono', monospace;
+			font-size: .75rem;
+			letter-spacing: .06em;
+		}
+
+		.step-label {
+			padding: .65rem 1.2rem;
+			border-radius: 2px;
+			border: 1px solid var(--tag-border);
+			background: var(--tag-bg);
+			color: var(--muted);
+			transition: all .2s;
+		}
+
+		.step-sub {
+			font-size: .85rem;
+			color: var(--muted);
+			letter-spacing: .04em;
+			opacity: .6;
+		}
+
+		.parcours-step.active .step-label {
+			border-color: var(--accent);
+			color: var(--accent);
+			background: var(--accent-dim);
+			box-shadow: 0 0 0 1px var(--accent);
+		}
+
+		.parcours-step.active .step-sub {
+			color: var(--accent);
+			opacity: 1;
+		}
+
+		.blink {
+			animation: blink 2.2s ease-in-out infinite;
+		}
+
+		.parcours-arrow {
+			font-family: 'DM Mono', monospace;
+			font-size: 1rem;
+			color: var(--border);
+			padding: 0 .1rem;
+			margin-bottom: 1rem;
+			flex-shrink: 0;
+		}
+
+		.hero-bio {
+			font-size: 1.45rem;
+			color: var(--muted);
+			line-height: 1.95;
+			max-width: 560px;
+			margin-bottom: 2.5rem;
+		}
+
+		.hero-stats {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1px;
+			background: var(--border);
+			border: 1px solid var(--border);
+			width: fit-content;
+			margin-bottom: 0;
+		}
+
+		.stat-item {
+			background: var(--bg);
+			padding: 1.8rem 2rem;
+			display: flex;
+			flex-direction: column;
+			gap: .3rem;
+			min-width: 150px;
+			justify-content: center;
+		}
+
+		.stat-value {
+			font-size: 2rem;
+			font-weight: 800;
+			line-height: 1;
+			letter-spacing: -.03em;
+			background: linear-gradient(135deg, var(--accent), var(--accent2));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.stat-label {
+			font-family: 'DM Mono', monospace;
+			font-size: .85rem;
+			letter-spacing: .08em;
+			color: var(--muted);
+			text-transform: uppercase;
+		}
+
+		.skills-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 1px;
+			background: var(--border);
+			border: 1px solid var(--border);
+		}
+
+		.skill-group {
+			background: var(--bg);
+			padding: 1.8rem;
+		}
+
+		.skill-group-title {
+			font-family: 'DM Mono', monospace;
+			font-size: .9rem;
+			letter-spacing: .12em;
+			text-transform: uppercase;
+			margin-bottom: 1.2rem;
+		}
+
+		.skill-group:nth-child(1) .skill-group-title {
+			color: var(--accent);
+		}
+
+		.skill-group:nth-child(2) .skill-group-title {
+			color: var(--accent2);
+		}
+
+		.skill-group:nth-child(3) .skill-group-title {
+			color: var(--accent3);
+		}
+
+		.skill-list {
+			display: flex;
+			flex-direction: column;
+			gap: .85rem;
+		}
+
+		.skill-item {
+			display: flex;
+			align-items: center;
+			gap: .75rem;
+			font-size: 1.1rem;
+			color: var(--text);
+		}
+
+		.skill-icon {
+			width: 18px;
+			height: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--accent2);
+			flex-shrink: 0;
+		}
+
+		.skill-icon svg {
+			width: 100%;
+			height: 100%;
+			stroke: currentColor;
+			fill: none;
+		}
+
+		.skill-item.word .skill-icon {
+			color: #2b579a;
+		}
+
+		.skill-item.excel .skill-icon {
+			color: #217346;
+		}
+
+		.skill-item.jira .skill-icon {
+			color: #0052cc;
+		}
+
+		.skill-item.python .skill-icon {
+			color: #3776ab;
+		}
+
+		.skill-item.htmlcss .skill-icon {
+			color: #e44d26;
+		}
+
+		.skill-dot {
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: var(--accent3);
+		}
+
+		.projects-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1px;
+			background: var(--border);
+			border: 1px solid var(--border);
+		}
+
+		.project-item {
+			position: relative;
+			background: var(--bg);
+			padding: 2.8rem 3rem;
+			display: grid;
+			gap: 1.15rem;
+			border-left: 2px solid transparent;
+			overflow: hidden;
+			transition: background .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+		}
+
+		.project-item::after {
+			content: '';
+			position: absolute;
+			left: 4px;
+			top: 50%;
+			width: 2px;
+			height: 0;
+			background: var(--accent);
+			transform: translateY(-50%);
+			transition: height .25s var(--ease), background .25s var(--ease);
+			z-index: 3;
+		}
+
+		.project-item:nth-child(even)::after {
+			background: var(--accent2);
+		}
+
+		.project-item:hover {
+			background: var(--surface);
+			border-left-color: transparent;
+			box-shadow: inset 6px 0 0 0 var(--surface);
+		}
+
+		.project-item:hover::after {
+			height: 80%;
+		}
+
+		.project-top {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 1.2rem;
+		}
+
+		.project-info {
+			flex: 1;
+		}
+
+		.project-name {
+			font-size: 1.05rem;
+			font-weight: 600;
+			margin-bottom: .45rem;
+			letter-spacing: -.01em;
+		}
+
+		.project-desc {
+			font-size: .95rem;
+			color: var(--muted);
+			line-height: 1.7;
+		}
+
+		.project-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: .45rem;
+			justify-content: flex-end;
+			flex-shrink: 0;
+		}
+
+		.project-tag {
+			font-family: 'DM Mono', monospace;
+			font-size: .68rem;
+			letter-spacing: .05em;
+			padding: .35rem .75rem;
+			border-radius: 2px;
+		}
+
+		.project-item:nth-child(odd) .project-tag {
+			background: var(--accent-dim);
+			color: var(--accent);
+		}
+
+		.project-item:nth-child(even) .project-tag {
+			background: var(--accent2-dim);
+			color: var(--accent2);
+		}
+
+		.project-links {
+			display: flex;
+			gap: .8rem;
+			flex-wrap: wrap;
+		}
+
+		.project-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: .45rem;
+			font-family: 'DM Mono', monospace;
+			font-size: 1rem;
+			letter-spacing: .07em;
+			padding: .45rem 1rem;
+			border-radius: 2px;
+			border: 1px solid var(--border);
+			color: rgba(236, 238, 245, .88);
+			background: rgba(94, 234, 212, .05);
+			transition: border-color .2s, color .2s, background .2s;
+		}
+
+		.project-btn:hover {
+			color: rgba(236, 238, 245, .98);
+			border-color: var(--accent);
+			background: rgba(94, 234, 212, .12);
+		}
+
+		.project-btn.preview {
+			background: rgba(129, 140, 248, .06);
+			color: rgba(236, 238, 245, .88);
+			border-color: var(--border);
+		}
+
+		.project-btn.preview:hover {
+			color: rgba(236, 238, 245, .98);
+			background: rgba(129, 140, 248, .14);
+			border-color: var(--accent2);
+		}
+
+		.project-btn svg {
+			width: 14px;
+			height: 14px;
+			stroke: currentColor;
+			fill: none;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+
+		.project-item.featured {
+			border: 1px solid rgba(255, 255, 255, .08);
+			background: var(--bg);
+		}
+
+		.project-item.featured:hover {
+			background: var(--surface);
+			box-shadow: inset 18px 0 0 0 var(--surface);
+		}
+
+		.project-item.featured::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			padding: 1px;
+			pointer-events: none;
+			background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+			background-size: 300% 100%;
+			animation: borderMove 5s linear infinite;
+			mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+			mask-composite: exclude;
+			-webkit-mask-composite: xor;
+		}
+
+		#contact .section-label,
+		footer {
+			margin-top: 0;
+		}
+
+		.contact-intro {
+			font-size: 1.15rem;
+			color: var(--muted);
+			line-height: 1.8;
+			max-width: 520px;
+			margin-bottom: 1.75rem;
+		}
+
+		.contact-links {
+			display: flex;
+			flex-direction: column;
+			gap: .7rem;
+		}
+
+		.contact-link {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 1rem 1.5rem;
+			border: 1px solid var(--border);
+			background: var(--surface);
+			transition: border-color .2s, background .2s;
+			width: fit-content;
+			min-width: 300px;
+		}
+
+		.contact-link:hover {
+			border-color: var(--accent2);
+			background: var(--accent2-dim);
+		}
+
+		.contact-label {
+			font-family: 'DM Mono', monospace;
+			font-size: .7rem;
+			letter-spacing: .08em;
+			color: var(--muted);
+			min-width: 70px;
+		}
+
+		.contact-value {
+			font-size: .9rem;
+			color: var(--text);
+		}
+
+		footer {
+			border-top: 1px solid var(--border);
+			padding: 2rem;
+			text-align: center;
+		}
+
+		.footer-text {
+			font-family: 'DM Mono', monospace;
+			font-size: .9rem;
+			color: var(--muted);
+			letter-spacing: .08em;
+		}
+
+		.fade-in {
+			opacity: 0;
+			transform: translateY(16px);
+			transition: opacity .55s var(--ease), transform .55s var(--ease);
+		}
+
+		.fade-in.visible {
+			opacity: 1;
+			transform: none;
+		}
+
+		@keyframes pulse {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: .3;
+			}
+		}
+
+		@keyframes blink {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			45%,
+			55% {
+				opacity: .25;
+			}
+		}
+
+		@keyframes borderMove {
+			from {
+				background-position: 0 50%;
+			}
+
+			to {
+				background-position: 300% 50%;
+			}
+		}
+
+		@media (max-width: 900px) {
+			.hero-stats {
+				width: 100%;
+				max-width: 100%;
+			}
+
+			section {
+				width: min(100%, 95vw);
+				padding: 4rem 1.2rem;
+			}
+		}
+
+		@media (max-width: 640px) {
+			nav {
+				padding: 0 1.25rem;
+			}
+
+			.nav-links {
+				display: none;
+			}
+
+			section {
+				padding: 4rem 1.25rem;
+			}
+
+			.sec-num {
+				font-size: 4.5rem;
+				top: 1rem;
+				right: 1.25rem;
+			}
+
+			.project-top {
+				flex-direction: column;
+			}
+
+			.project-tags {
+				justify-content: flex-start;
+			}
+
+			.contact-link {
+				min-width: 0;
+				width: 100%;
+			}
+
+			.hero-stats {
+				justify-content: center;
+				width: 100%;
+			}
+
+			.stat-item {
+				padding: .75rem;
+			}
+
+			.stat-value {
+				font-size: 1rem;
+			}
+
+			.stat-label {
+				font-size: .75rem;
+				line-height: 1.3;
+			}
+		}
+	</style>
 </head>
+
 <body>
-  <nav>
-    <span class="nav-logo">// portfolio</span>
-    <ul class="nav-links">
-      <li><a href="#about" data-section="about">à propos</a></li>
-      <li><a href="#skills" data-section="skills">compétences</a></li>
-      <li><a href="#projects" data-section="projects">projets</a></li>
-      <li><a href="#contact" data-section="contact">contact</a></li>
-    </ul>
-    <div class="toggle" id="themeToggle" title="Changer de thème" aria-label="Toggle theme"></div>
-  </nav>
-  <main>
-    <section id="about">
-      <div class="hero-school-badge">Étudiant · <span>ESAIP, Aix-en-Provence</span></div>
-      <h1>Arthur<br /><em>SEGUIN</em></h1>
-      <div class="hero-title">Cybersécurité &amp; Réseaux</div>
-      <div class="parcours">
-        <div class="parcours-step active">
-          <div class="step-label">Prépa intégrée</div>
-          <div class="step-sub blink">1ère année · en cours</div>
-        </div>
-        <div class="parcours-arrow">›</div>
-        <div class="parcours-step future">
-          <div class="step-label">Prépa intégrée</div>
-          <div class="step-sub">2ème année</div>
-        </div>
-        <div class="parcours-arrow">›</div>
-        <div class="parcours-step future">
-          <div class="step-label">Cycle Ingénieur</div>
-          <div class="step-sub">ING1 · ING2 · ING3</div>
-        </div>
-      </div>
-      <p class="hero-bio">[Ta bio ici — quelques phrases sur ton parcours, ce qui t'intéresse en cyber, ce que tu recherches.]</p>
-      <div class="hero-stats">
-        <div class="stat-item"><div class="stat-value" data-target="5">0</div><div class="stat-label">Projets perso</div></div>
-        <div class="stat-item"><div class="stat-value" data-target="2">0</div><div class="stat-label">Langages</div></div>
-        <div class="stat-item"><div class="stat-value" data-target="1">0</div><div class="stat-label">Année d'études</div></div>
-        <div class="stat-item"><div class="stat-value" data-target="5">0</div><div class="stat-label">Ans de curiosité</div></div>
-      </div>
-    </section>
-    <section id="skills">
-      <div class="sec-num">01</div>
-      <div class="section-label fade-in">Compétences</div>
-      <div class="skills-grid fade-in">
-        <div class="skill-group">
-          <div class="skill-group-title">Logiciels</div>
-          <ul class="skill-list">
-            <li class="skill-item word"><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/><path d="M8 17l2-8 2.5 6L15 9l2 8"/></svg></span>Word</li>
-            <li class="skill-item excel"><span class="skill-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h8"/><path d="M11 8l4 8"/><path d="M15 8l-4 8"/></svg></span>Excel</li>
-            <li class="skill-item jira"><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M5 4h14v4H5z"/><path d="M5 10h14v4H5z"/><path d="M5 16h14v4H5z"/></svg></span>Jira Asset</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-title">Langages</div>
-          <ul class="skill-list">
-            <li class="skill-item python"><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2.5c-3 0-5 1.7-5 4.5v2h5v1h-6a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h5v-1.5h-4.5v-1.5h6c1.8 0 3-1.3 3-3v-2c0-1.7-1.2-3-3-3h-5v1h5v2.5c0 2.8-2 4.5-5 4.5z"/><circle cx="9" cy="6.5" r="1"/></svg></span>Python</li>
-            <li class="skill-item htmlcss"><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16l-2.5 16L12 21l-5.5-2L4 3z"/><path d="M8 9h8M8 13h4"/></svg></span>HTML / CSS</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-title">Qualités</div>
-          <ul class="skill-list">
-            <li class="skill-item"><span class="skill-dot"></span>Rigoureux</li>
-            <li class="skill-item"><span class="skill-dot"></span>Sérieux</li>
-            <li class="skill-item"><span class="skill-dot"></span>Ponctuel</li>
-            <li class="skill-item"><span class="skill-dot"></span>Discret</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section id="projects">
-      <div class="sec-num">02</div>
-      <div class="section-label fade-in">Projets</div>
-      <div class="projects-list fade-in">
-        <div class="project-item featured">
-          <div class="project-top">
-            <div class="project-info">
-              <div class="project-name">Cloud Maison</div>
-              <div class="project-desc">Infrastructure cloud personnelle — stockage, accès distant et gestion des données depuis chez soi.</div>
-            </div>
-            <div class="project-tags"><span class="project-tag">HTML/CSS/JS</span><span class="project-tag">Linux</span><span class="project-tag">Réseaux</span><span class="project-tag">Sécurité</span></div>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AMINONA/Cloud" target="_blank" rel="noopener" class="project-btn"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-            <a href="apercu.html" target="_blank" rel="noopener" class="project-btn preview"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Aperçu</a>
-          </div>
-        </div>
-        <div class="project-item">
-          <div class="project-top">
-            <div class="project-info"><div class="project-name">Hash Verifier</div><div class="project-desc">Outil de vérification d'intégrité de fichiers par comparaison de hash cryptographiques.</div></div>
-            <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">HTML/CSS/JS</span></div>
-          </div>
-          <div class="project-links"><a href="https://github.com/AMINONA/Hash-Verifier" target="_blank" rel="noopener" class="project-btn"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a><a href="apercu.html" target="_blank" rel="noopener" class="project-btn preview"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Aperçu</a></div>
-        </div>
-        <div class="project-item">
-          <div class="project-top">
-            <div class="project-info"><div class="project-name">Échiquier</div><div class="project-desc">Échiquier interactif développé entièrement côté client.</div></div>
-            <div class="project-tags"><span class="project-tag">HTML</span></div>
-          </div>
-          <div class="project-links"><a href="https://github.com/AMINONA/Chess" target="_blank" rel="noopener" class="project-btn"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a><a href="apercu.html" target="_blank" rel="noopener" class="project-btn preview"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Aperçu</a></div>
-        </div>
-        <div class="project-item">
-          <div class="project-top">
-            <div class="project-info"><div class="project-name">Lettre de Motivation</div><div class="project-desc">Template de lettre de motivation mis en page directement en HTML/CSS.</div></div>
-            <div class="project-tags"><span class="project-tag">HTML/CSS</span></div>
-          </div>
-          <div class="project-links"><a href="https://github.com/AMINONA/Lettre-de-motivation-HTML-CSS" target="_blank" rel="noopener" class="project-btn"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a><a href="apercu.html" target="_blank" rel="noopener" class="project-btn preview"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Aperçu</a></div>
-        </div>
-      </div>
-    </section>
-    <section id="contact">
-      <div class="sec-num">03</div>
-      <div class="section-label fade-in">Contact</div>
-      <div class="fade-in">
-        <p class="contact-intro">Une question, une opportunité ? N'hésite pas à me contacter.</p>
-        <div class="contact-links">
-          <a href="mailto:art04fr@gmail.com" class="contact-link"><span class="contact-label">Email</span><span class="contact-value">art04fr@gmail.com</span></a>
-          <a href="https://www.linkedin.com/in/arthur--seguin/" target="_blank" rel="noopener" class="contact-link"><span class="contact-label">LinkedIn</span><span class="contact-value">Arthur SEGUIN</span></a>
-          <a href="https://github.com/AMINONA" target="_blank" rel="noopener" class="contact-link"><span class="contact-label">GitHub</span><span class="contact-value">AMINONA</span></a>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer><p class="footer-text">Arthur SEGUIN — 2023</p></footer>
-  <script>
-    const toggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const saved = localStorage.getItem('theme');
-    if (saved) html.setAttribute('data-theme', saved);
-    toggle.addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
+	<nav>
+		<span class="nav-logo">// portfolio</span>
+		<ul class="nav-links">
+			<li><a href="#about" data-section="about">à propos</a></li>
+			<li><a href="#skills" data-section="skills">compétences</a></li>
+			<li><a href="#projects" data-section="projects">projets</a></li>
+			<li><a href="#contact" data-section="contact">contact</a></li>
+		</ul>
+		<div class="toggle" id="themeToggle" title="Changer de thème" aria-label="Toggle theme"></div>
+	</nav>
+	<main>
+		<section id="about">
+			<div class="hero-school-badge">Étudiant · <span>ESAIP, Aix-en-Provence</span></div>
+			<h1>Arthur<br /><em>SEGUIN</em></h1>
+			<div class="hero-title">Cybersécurité &amp; Réseaux</div>
+			<div class="parcours">
+				<div class="parcours-step active">
+					<div class="step-label">Prépa intégrée</div>
+					<div class="step-sub blink">1ère année · en cours</div>
+				</div>
+				<div class="parcours-arrow">›</div>
+				<div class="parcours-step future">
+					<div class="step-label">Prépa intégrée</div>
+					<div class="step-sub">2ème année</div>
+				</div>
+				<div class="parcours-arrow">›</div>
+				<div class="parcours-step future">
+					<div class="step-label">Cycle Ingénieur</div>
+					<div class="step-sub">ING1 · ING2 · ING3</div>
+				</div>
+			</div>
+			<p class="hero-bio">[Ta bio ici — quelques phrases sur ton parcours, ce qui t'intéresse en cyber, ce que tu
+				recherches.]</p>
+			<div class="hero-stats">
+				<div class="stat-item">
+					<div class="stat-value" data-target="5">0</div>
+					<div class="stat-label">Projets perso</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-value" data-target="2">0</div>
+					<div class="stat-label">Langages</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-value" data-target="1">0</div>
+					<div class="stat-label">Année d'études</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-value" data-target="5">0</div>
+					<div class="stat-label">Ans de curiosité</div>
+				</div>
+			</div>
+		</section>
+		<section id="skills">
+			<div class="sec-num">01</div>
+			<div class="section-label fade-in">Compétences</div>
+			<div class="skills-grid fade-in">
+				<div class="skill-group">
+					<div class="skill-group-title">Logiciels</div>
+					<ul class="skill-list">
+						<li class="skill-item word"><span class="skill-icon"><svg viewBox="0 0 24 24">
+									<path d="M5 3h10l4 4v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+									<path d="M15 3v5h5" />
+									<path d="M8 17l2-8 2.5 6L15 9l2 8" />
+								</svg></span>Word</li>
+						<li class="skill-item excel"><span class="skill-icon"><svg viewBox="0 0 24 24">
+									<rect x="4" y="4" width="16" height="16" rx="2" />
+									<path d="M8 8h8" />
+									<path d="M8 12h8" />
+									<path d="M8 16h8" />
+									<path d="M11 8l4 8" />
+									<path d="M15 8l-4 8" />
+								</svg></span>Excel</li>
+						<li class="skill-item jira"><span class="skill-icon"><svg viewBox="0 0 24 24">
+									<path d="M5 4h14v4H5z" />
+									<path d="M5 10h14v4H5z" />
+									<path d="M5 16h14v4H5z" />
+								</svg></span>Jira Asset</li>
+					</ul>
+				</div>
+				<div class="skill-group">
+					<div class="skill-group-title">Langages</div>
+					<ul class="skill-list">
+						<li class="skill-item python"><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none"
+									stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+									stroke-linejoin="round">
+									<path
+										d="M11.5 2.5c-3 0-5 1.7-5 4.5v2h5v1h-6a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h5v-1.5h-4.5v-1.5h6c1.8 0 3-1.3 3-3v-2c0-1.7-1.2-3-3-3h-5v1h5v2.5c0 2.8-2 4.5-5 4.5z" />
+									<circle cx="9" cy="6.5" r="1" />
+								</svg></span>Python</li>
+						<li class="skill-item htmlcss"><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none"
+									stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+									stroke-linejoin="round">
+									<path d="M4 3h16l-2.5 16L12 21l-5.5-2L4 3z" />
+									<path d="M8 9h8M8 13h4" />
+								</svg></span>HTML / CSS</li>
+					</ul>
+				</div>
+				<div class="skill-group">
+					<div class="skill-group-title">Qualités</div>
+					<ul class="skill-list">
+						<li class="skill-item"><span class="skill-dot"></span>Rigoureux</li>
+						<li class="skill-item"><span class="skill-dot"></span>Sérieux</li>
+						<li class="skill-item"><span class="skill-dot"></span>Ponctuel</li>
+						<li class="skill-item"><span class="skill-dot"></span>Discret</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section id="projects">
+			<div class="sec-num">02</div>
+			<div class="section-label fade-in">Projets</div>
+			<div class="projects-list fade-in">
+				<div class="project-item featured">
+					<div class="project-top">
+						<div class="project-info">
+							<div class="project-name">Cloud Maison</div>
+							<div class="project-desc">Infrastructure cloud personnelle — stockage, accès distant et
+								gestion des données depuis chez soi.</div>
+						</div>
+						<div class="project-tags"><span class="project-tag">HTML/CSS/JS</span><span
+								class="project-tag">Linux</span><span class="project-tag">Réseaux</span><span
+								class="project-tag">Sécurité</span></div>
+					</div>
+					<div class="project-links">
+						<a href="https://github.com/AMINONA/Cloud" target="_blank" rel="noopener"
+							class="project-btn"><svg viewBox="0 0 24 24">
+								<path
+									d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+							</svg>GitHub</a>
+						<a href="apercu.html" target="_blank" rel="noopener" class="project-btn preview"><svg
+								viewBox="0 0 24 24">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+								<polyline points="15 3 21 3 21 9" />
+								<line x1="10" y1="14" x2="21" y2="3" />
+							</svg>Aperçu</a>
+					</div>
+				</div>
+				<div class="project-item">
+					<div class="project-top">
+						<div class="project-info">
+							<div class="project-name">Hash Verifier</div>
+							<div class="project-desc">Outil de vérification d'intégrité de fichiers par comparaison de
+								hash cryptographiques.</div>
+						</div>
+						<div class="project-tags"><span class="project-tag">Python</span><span
+								class="project-tag">HTML/CSS/JS</span></div>
+					</div>
+					<div class="project-links"><a href="https://github.com/AMINONA/Hash-Verifier" target="_blank"
+							rel="noopener" class="project-btn"><svg viewBox="0 0 24 24">
+								<path
+									d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+							</svg>GitHub</a><a href="apercu.html" target="_blank" rel="noopener"
+							class="project-btn preview"><svg viewBox="0 0 24 24">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2V8a2 2 0 0 1 2-2h6" />
+								<polyline points="15 3 21 3 21 9" />
+								<line x1="10" y1="14" x2="21" y2="3" />
+							</svg>Aperçu</a></div>
+				</div>
+				<div class="project-item">
+					<div class="project-top">
+						<div class="project-info">
+							<div class="project-name">Échiquier</div>
+							<div class="project-desc">Échiquier interactif développé entièrement côté client.</div>
+						</div>
+						<div class="project-tags"><span class="project-tag">HTML</span></div>
+					</div>
+					<div class="project-links"><a href="https://github.com/AMINONA/Chess" target="_blank" rel="noopener"
+							class="project-btn"><svg viewBox="0 0 24 24">
+								<path
+									d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+							</svg>GitHub</a><a href="apercu.html" target="_blank" rel="noopener"
+							class="project-btn preview"><svg viewBox="0 0 24 24">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2V8a2 2 0 0 1 2-2h6" />
+								<polyline points="15 3 21 3 21 9" />
+								<line x1="10" y1="14" x2="21" y2="3" />
+							</svg>Aperçu</a></div>
+				</div>
+				<div class="project-item">
+					<div class="project-top">
+						<div class="project-info">
+							<div class="project-name">Lettre de Motivation</div>
+							<div class="project-desc">Template de lettre de motivation mis en page directement en
+								HTML/CSS.</div>
+						</div>
+						<div class="project-tags"><span class="project-tag">HTML/CSS</span></div>
+					</div>
+					<div class="project-links"><a href="https://github.com/AMINONA/Lettre-de-motivation-HTML-CSS"
+							target="_blank" rel="noopener" class="project-btn"><svg viewBox="0 0 24 24">
+								<path
+									d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+							</svg>GitHub</a><a href="apercu.html" target="_blank" rel="noopener"
+							class="project-btn preview"><svg viewBox="0 0 24 24">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2V8a2 2 0 0 1 2-2h6" />
+								<polyline points="15 3 21 3 21 9" />
+								<line x1="10" y1="14" x2="21" y2="3" />
+							</svg>Aperçu</a></div>
+				</div>
+			</div>
+		</section>
+		<section id="contact">
+			<div class="sec-num">03</div>
+			<div class="section-label fade-in">Contact</div>
+			<div class="fade-in">
+				<p class="contact-intro">Une question, une opportunité ? N'hésite pas à me contacter.</p>
+				<div class="contact-links">
+					<a href="mailto:art04fr@gmail.com" class="contact-link"><span
+							class="contact-label">Email</span><span class="contact-value">art04fr@gmail.com</span></a>
+					<a href="https://www.linkedin.com/in/arthur--seguin/" target="_blank" rel="noopener"
+						class="contact-link"><span class="contact-label">LinkedIn</span><span
+							class="contact-value">Arthur SEGUIN</span></a>
+					<a href="https://github.com/AMINONA" target="_blank" rel="noopener" class="contact-link"><span
+							class="contact-label">GitHub</span><span class="contact-value">AMINONA</span></a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer>
+		<p class="footer-text">Arthur SEGUIN — 2023</p>
+	</footer>
+	<script>
+		const toggle = document.getElementById('themeToggle');
+		const html = document.documentElement;
+		const saved = localStorage.getItem('theme');
+		if (saved) html.setAttribute('data-theme', saved);
+		toggle.addEventListener('click', () => {
+			const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+			html.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+		});
 
-    const fadeObs = new IntersectionObserver(entries => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      });
-    }, { threshold: .12 });
-    document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+		const fadeObs = new IntersectionObserver(entries => {
+			entries.forEach((entry, i) => {
+				if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+			});
+		}, { threshold: .12 });
+		document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
 
-    const navLinks = document.querySelectorAll('.nav-links a[data-section]');
-    const sections = document.querySelectorAll('main section[id]');
-    const secObs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => link.classList.toggle('active', link.dataset.section === entry.target.id));
-        }
-      });
-    }, { threshold: .35 });
-    sections.forEach(section => secObs.observe(section));
+		const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+		const sections = document.querySelectorAll('main section[id]');
+		const secObs = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					navLinks.forEach(link => link.classList.toggle('active', link.dataset.section === entry.target.id));
+				}
+			});
+		}, { threshold: .35 });
+		sections.forEach(section => secObs.observe(section));
 
-    const counters = document.querySelectorAll('.stat-value[data-target]');
-    let counted = false;
-    const countObs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !counted) {
-          counted = true;
-          counters.forEach(el => {
-            const target = +el.dataset.target;
-            const duration = 900;
-            const step = 16;
-            const increment = target / (duration / step);
-            let current = 0;
-            const timer = setInterval(() => {
-              current += increment;
-              if (current >= target) { current = target; clearInterval(timer); }
-              el.textContent = Math.floor(current);
-            }, step);
-          });
-        }
-      });
-    }, { threshold: .5 });
-    const statsBlock = document.querySelector('.hero-stats');
-    if (statsBlock) countObs.observe(statsBlock);
-  </script>
+		const counters = document.querySelectorAll('.stat-value[data-target]');
+		let counted = false;
+		const countObs = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting && !counted) {
+					counted = true;
+					counters.forEach(el => {
+						const target = +el.dataset.target;
+						const duration = 900;
+						const step = 16;
+						const increment = target / (duration / step);
+						let current = 0;
+						const timer = setInterval(() => {
+							current += increment;
+							if (current >= target) { current = target; clearInterval(timer); }
+							el.textContent = Math.floor(current);
+						}, step);
+					});
+				}
+			});
+		}, { threshold: .5 });
+		const statsBlock = document.querySelector('.hero-stats');
+		if (statsBlock) countObs.observe(statsBlock);
+	</script>
 </body>
+
 </html>
